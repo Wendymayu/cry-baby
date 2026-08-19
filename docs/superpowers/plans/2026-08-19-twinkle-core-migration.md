@@ -324,7 +324,7 @@ from fastapi_app.database import Base
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    openid = Column(Text, unique, nullable=False)
+    openid = Column(Text, unique=True, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
