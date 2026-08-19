@@ -10,3 +10,7 @@ app.add_middleware(
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+from fastapi_app.routers import auth as auth_router
+app.include_router(auth_router.router)
