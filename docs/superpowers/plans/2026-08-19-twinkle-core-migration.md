@@ -1067,7 +1067,7 @@ cp "$TW/permissions/approval_registry.py" backend/agent/permissions/approval_reg
        return Path(self._sessions_dir) / "pending"
    ```
    并在 `__init__` 签名加 `sessions_dir` 参数 + `self._sessions_dir = str(sessions_dir)`,`_pending_path` 所在目录需 `Path(...).mkdir(parents=True, exist_ok=True)`(保留原 mkdir 逻辑)。
-4. 删除模块级 `APPROVAL_REGISTRY = ApprovalRegistry()` 单例(改为在 app wiring 处构建);保留 `ApprovalPendingRecord` 与类。
+4. **保留**模块级单例,但改为传硬编码默认路径:`APPROVAL_REGISTRY = ApprovalRegistry(sessions_dir="sessions")`(Option A 不引入 config 依赖;真实路径由 wiring 阶段 Phase 2 注入)。保留 `ApprovalPendingRecord` 与类。**勿删 `APPROVAL_REGISTRY`** —— `react_loop.py`(Task 11)依赖 `from .permissions.approval_registry import APPROVAL_REGISTRY`(用于 register/get_pending/clear_all_pending)。
 
 - [ ] **Step 2: 写 permissions/__init__.py**
 
