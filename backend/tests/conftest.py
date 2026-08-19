@@ -25,3 +25,19 @@ def db():
 @pytest.fixture()
 def tmp_sessions_dir(tmp_path):
     return tmp_path / "sessions"
+
+
+from agent.llm_client import TextDelta, Finish
+
+
+class FakeLLM:
+    """模拟 LLMClient.stream 契约:按脚本依次吐 TextDelta / Finish。"""
+    def __init__(self, scripts):
+        self._scripts = list(scripts)
+        self.calls = 0
+
+    async def stream(self, messages, tools):
+        seq = self._scripts[self.calls]
+        self.calls += 1
+        for ev in seq:
+            yield ev
