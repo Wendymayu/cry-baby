@@ -14,3 +14,6 @@ def health():
 
 from fastapi_app.routers import auth as auth_router
 app.include_router(auth_router.router)
+
+from fastapi_app.routers import clothing as clothing_router
+app.include_router(clothing_router.router)
