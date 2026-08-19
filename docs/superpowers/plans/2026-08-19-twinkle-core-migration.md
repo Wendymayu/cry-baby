@@ -694,7 +694,7 @@ from .manager import ToolManager
 
 
 def tool_manager() -> ToolManager:
-    """精简构建器:不注册 twinkle 内置工具;领域工具在各 Task 自行 register。"""
+    """精简构建器:不预注册内置工具;领域工具在各 Task 自行 register。"""
     return ToolManager()
 
 
