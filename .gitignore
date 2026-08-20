@@ -1,2 +1,6 @@
 # Claude Code session/plugin state (machine-local, never commit)
 .claude/
+
+# WeChat Mini Program — DevTools local state (machine-local, never commit)
+miniprogram/project.private.config.json
+miniprogram/miniprogram_npm/

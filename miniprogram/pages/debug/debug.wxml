@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="hint">后端地址:{{baseUrl}}</view>
+
+  <button type="primary" bindtap="testHealth">1. 测连通 GET /health</button>
+  <view class="result">{{health || '(点上方按钮)'}}</view>
+
+  <button type="primary" bindtap="login">2. 登录 POST /api/auth/login</button>
+  <view class="result token">token:{{token || '(未登录)'}}</view>
+
+  <view class="label">手动 token(可选,绕过登录测 clothing)</view>
+  <input class="input" value="{{manualToken}}" bindinput="onManualToken" placeholder="粘贴用后端 make_token 生成的 JWT" />
+
+  <button type="primary" bindtap="listClothes">3. 列衣物 GET /api/clothing</button>
+  <view class="result">{{clothes || '(点上方按钮)'}}</view>
+</view>
