@@ -987,7 +987,7 @@ class LoopEvent:
 ```python
 import asyncio
 from agent.prompts import PromptSection, SystemPromptBuilder
-from agent.hooks import HookManager, HookEvent
+from agent.hooks import HookManager, HookEvent, HookContext
 from agent.events import LoopEvent
 
 
@@ -1017,9 +1017,11 @@ def test_hook_manager_executes():
         def init(self, agent): pass
         def uninit(self, agent): pass
 
+    ctx = HookContext(agent=None, event=HookEvent.AFTER_MODEL_CALL,
+                      inputs=None, session_id=None, request_id=None)
     hm = HookManager()
     hm.register_hook(H())
-    asyncio.run(hm.execute(HookEvent.AFTER_MODEL_CALL, None))
+    asyncio.run(hm.execute(HookEvent.AFTER_MODEL_CALL, ctx))
     assert calls == ["after"]
 ```
 
@@ -1088,10 +1090,14 @@ from agent.permissions import ApprovalRegistry
 
 def test_register_and_resolve(tmp_sessions_dir):
     reg = ApprovalRegistry(sessions_dir=tmp_sessions_dir)
-    fut = reg.register("ap1")
-    assert not fut.done()
-    assert reg.resolve("ap1", "approved") is True
-    assert fut.done() and fut.result() == "approved"
+
+    async def _setup():
+        fut = reg.register("ap1")
+        assert not fut.done()
+        assert reg.resolve("ap1", "approved") is True
+        assert fut.done() and fut.result() == "approved"
+
+    asyncio.run(_setup())
 
 
 def test_resolve_unknown_returns_false(tmp_sessions_dir):
