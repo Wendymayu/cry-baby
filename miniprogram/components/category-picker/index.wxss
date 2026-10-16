@@ -1,0 +1,7 @@
+.picker-row {
+  padding: 20rpx;
+  background: #fff;
+  border: 1rpx solid #f0ece6;
+  border-radius: 12rpx;
+}
+.placeholder { color: #a89a8a; }

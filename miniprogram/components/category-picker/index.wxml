@@ -1,0 +1,6 @@
+<picker mode="selector" range="{{categories}}" value="{{idx}}" bindchange="onChange">
+  <view class="picker-row">
+    <text wx:if="{{value}}">{{value}}</text>
+    <text wx:else class="placeholder">请选择分类</text>
+  </view>
+</picker>
