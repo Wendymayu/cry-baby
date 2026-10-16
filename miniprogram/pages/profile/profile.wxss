@@ -1,0 +1,12 @@
+.page { padding: 24rpx; }
+.field { background: #fff; border: 1rpx solid #f0ece6; border-radius: 16rpx; padding: 24rpx; margin-bottom: 24rpx; }
+.label { font-size: 26rpx; color: #a89a8a; margin-bottom: 12rpx; }
+.input { padding: 16rpx; background: #faf8f5; border-radius: 8rpx; margin-bottom: 16rpx; }
+.save { width: 200rpx; }
+.row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #fff; border: 1rpx solid #f0ece6; border-radius: 16rpx;
+  padding: 28rpx 24rpx; margin-bottom: 16rpx;
+}
+.arrow { color: #a89a8a; }
+.about { justify-content: center; color: #a89a8a; font-size: 24rpx; }
