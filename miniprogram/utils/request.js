@@ -4,7 +4,7 @@ const { getToken, clearToken } = require('./token-store');
 let onUnauthorized = null;
 function setUnauthorizedHandler(fn) { onUnauthorized = fn; }
 
-function request({ url, method = 'GET', data, needAuth = true }) {
+function request({ url, method = 'GET', data, needAuth = true }, retried = false) {
   return new Promise((resolve, reject) => {
     const baseUrl = getApp().globalData.baseUrl;
     const header = {};
@@ -20,9 +20,10 @@ function request({ url, method = 'GET', data, needAuth = true }) {
       success(res) {
         if (res.statusCode === 401 && needAuth) {
           clearToken();
-          if (onUnauthorized) {
+          // spec §7.1:重试一次仍失败则 reject。retried 守卫防止破损后端下无限循环/请求风暴。
+          if (!retried && onUnauthorized) {
             onUnauthorized().then(() => {
-              request({ url, method, data, needAuth }).then(resolve).catch(reject);
+              request({ url, method, data, needAuth }, true).then(resolve).catch(reject);
             }).catch(() => reject(new Error('Unauthorized')));
           } else {
             reject(new Error('Unauthorized'));
