@@ -1,13 +1,28 @@
 {
   "pages": [
+    "pages/closet/closet",
+    "pages/clothing-edit/clothing-edit",
+    "pages/chat/chat",
+    "pages/profile/profile",
     "pages/debug/debug"
   ],
   "window": {
-    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "cry-baby 调试",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "衣橱",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#faf8f5"
   },
   "style": "v2",
+  "tabBar": {
+    "color": "#a89a8a",
+    "selectedColor": "#a68a64",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/closet/closet", "text": "衣橱" },
+      { "pagePath": "pages/chat/chat", "text": "对话" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
+  },
   "sitemapLocation": "sitemap.json"
 }

@@ -1,7 +1,15 @@
-// cry-baby 小程序入口
-// 后端地址:模拟器用本机 127.0.0.1;真机调试改成电脑局域网 IP(如 http://192.168.1.50:8000)
+// miniprogram/app.js
+const { ensureLogin } = require('./utils/auth');
+const { setUnauthorizedHandler } = require('./utils/request');
+
+const DEFAULT_BASE_URL = 'http://127.0.0.1:8000';
+
 App({
-  globalData: {
-    baseUrl: 'http://127.0.0.1:8000'
-  }
-})
+  globalData: { baseUrl: DEFAULT_BASE_URL },
+  onLaunch() {
+    const stored = wx.getStorageSync('baseUrl');
+    if (stored) this.globalData.baseUrl = stored;
+    setUnauthorizedHandler(ensureLogin);
+    ensureLogin().catch(() => {}); // 静默,失败由页面在调接口时处理
+  },
+});
