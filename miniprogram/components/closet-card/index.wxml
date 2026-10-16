@@ -1,0 +1,7 @@
+<view class="card closet-card">
+  <view class="swatch" style="background: {{swatch}};"></view>
+  <view class="meta">
+    <view class="cat">{{item.category}}</view>
+    <view class="remark" wx:if="{{item.remark}}">{{item.remark}}</view>
+  </view>
+</view>
