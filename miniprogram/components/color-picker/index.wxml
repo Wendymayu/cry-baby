@@ -1,0 +1,8 @@
+<view class="colors">
+  <view wx:for="{{colors}}" wx:key="key"
+        class="color-item {{value === item.key ? 'selected' : ''}}"
+        bindtap="pick" data-key="{{item.key}}">
+    <view class="swatch" style="background: {{item.value}};"></view>
+    <text class="name">{{item.name}}</text>
+  </view>
+</view>

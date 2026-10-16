@@ -1,0 +1,8 @@
+.colors { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.color-item { width: 120rpx; text-align: center; }
+.swatch {
+  width: 100rpx; height: 100rpx; margin: 0 auto 8rpx;
+  border-radius: 50%; border: 4rpx solid transparent;
+}
+.color-item.selected .swatch { border-color: #a68a64; }
+.name { font-size: 22rpx; color: #5a4a3a; }
