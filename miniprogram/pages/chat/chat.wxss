@@ -1,0 +1,7 @@
+.page { padding: 40rpx; }
+.placeholder-box {
+  margin-top: 200rpx; padding: 48rpx; text-align: center;
+  background: #fff; border: 1rpx solid #f0ece6; border-radius: 16rpx;
+}
+.title { font-size: 32rpx; font-weight: 600; margin-bottom: 16rpx; }
+.desc { font-size: 26rpx; color: #a89a8a; line-height: 1.6; }
