@@ -1,4 +1,6 @@
 // 调试页:对接 backend FastAPI 三个接口,验证小程序↔后端链路
+const { setToken } = require('../../utils/token-store')
+const { loginWithManualToken } = require('../../utils/auth')
 const app = getApp()
 
 Page({
@@ -34,7 +36,7 @@ Page({
           data: { code },
           success: r => {
             if (r.data.token) {
-              wx.setStorageSync('token', r.data.token)
+              setToken(r.data.token)
               this.setData({ token: r.data.token })
             }
             this.setData({ health: 'login: ' + JSON.stringify(r.data) })
@@ -63,5 +65,14 @@ Page({
 
   onManualToken(e) {
     this.setData({ manualToken: e.detail.value })
+  },
+
+  // 应用手动 token:写入 storage,使衣橱页等正式链路也能用(游客绕过)
+  applyManualToken() {
+    const t = (this.data.manualToken || '').trim()
+    if (!t) { wx.showToast({ title: '先粘贴 token', icon: 'none' }); return }
+    loginWithManualToken(t)
+    this.setData({ token: t })
+    wx.showToast({ title: '已应用', icon: 'success' })
   }
 })
