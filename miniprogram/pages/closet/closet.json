@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "衣橱",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "closet-card": "/components/closet-card/index"
+  }
+}

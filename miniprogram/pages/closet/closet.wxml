@@ -1,0 +1,12 @@
+<view class="page">
+  <view class="grid" wx:if="{{items.length}}">
+    <view wx:for="{{items}}" wx:key="id" class="cell">
+      <closet-card item="{{item}}"></closet-card>
+    </view>
+  </view>
+  <view class="empty" wx:elif="{{!loading}}">
+    <text class="subtitle">衣橱还是空的</text>
+    <button class="btn-primary add-btn" bindtap="goAdd">添加第一件</button>
+  </view>
+  <view class="fab" bindtap="goAdd">+</view>
+</view>
