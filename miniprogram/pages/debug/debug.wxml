@@ -8,7 +8,7 @@
   <view class="result token">token:{{token || '(未登录)'}}</view>
 
   <view class="label">手动 token(可选,绕过登录测 clothing)</view>
-  <input class="input" value="{{manualToken}}" bindinput="onManualToken" placeholder="粘贴用后端 make_token 生成的 JWT" />
+  <input class="input" value="{{manualToken}}" bindinput="onManualToken" maxlength="500" placeholder="粘贴用后端 make_token 生成的 JWT" />
 
   <button type="primary" bindtap="applyManualToken">应用手动 token(写入 storage)</button>
 
