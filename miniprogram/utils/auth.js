@@ -14,7 +14,20 @@ function ensureLogin() {
       success(loginRes) {
         api.auth.login(loginRes.code).then(data => {
           if (data && data.token) { setToken(data.token); resolve(data.token); }
-          else { reject(new Error('no token')); }
+          else {
+            // Tourist/preview AppIDs cannot exchange wx.login codes for an
+            // openid. The backend exposes this fallback only while APP_SECRET
+            // is unset, so local development can still exercise authenticated
+            // clothing CRUD without weakening configured production login.
+            api.auth.devToken().then(devData => {
+              if (devData && devData.token) {
+                setToken(devData.token);
+                resolve(devData.token);
+              } else {
+                reject(new Error('no token'));
+              }
+            }).catch(() => reject(new Error('login unavailable')));
+          }
         }).catch(reject);
       },
       fail(err) { reject(new Error((err && err.errMsg) || 'wx.login failed')); },

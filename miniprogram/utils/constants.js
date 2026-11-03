@@ -1,6 +1,14 @@
 // miniprogram/utils/constants.js
 const CATEGORIES = ['上衣', '外套', '衬衫', '裤子', '裙装', '鞋', '配饰'];
 
+// Optional, manually selected labels for wardrobe filtering and future outfit suggestions.
+const TAG_GROUPS = [
+  { key: 'season_tags', label: '适用季节', options: ['春季', '夏季', '秋季', '冬季'] },
+  { key: 'occasion_tags', label: '适用场景', options: ['通勤', '休闲', '运动', '约会', '正式', '居家'] },
+  { key: 'style_tags', label: '风格', options: ['简约', '复古', '甜美', '街头', '优雅', '户外'] },
+  { key: 'material_tags', label: '材质', options: ['棉', '麻', '牛仔', '针织', '羊毛/羊绒', '皮革', '聚酯纤维'] },
+];
+
 const COLORS = [
   { key: 'black',  name: '黑',  value: '#222222' },
   { key: 'white',  name: '白',  value: '#ffffff' },
@@ -23,4 +31,4 @@ function getColorName(key) {
   return c ? c.name : key;
 }
 
-module.exports = { CATEGORIES, COLORS, getColorValue, getColorName };
+module.exports = { CATEGORIES, COLORS, TAG_GROUPS, getColorValue, getColorName };

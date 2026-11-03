@@ -1,5 +1,15 @@
 .page { padding: 16rpx; padding-bottom: 120rpx; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16rpx; }
+.filter-scroll { width: 100%; margin: 0 0 20rpx; white-space: nowrap; }
+.filter-list { display: flex; align-items: center; gap: 14rpx; padding: 4rpx 2rpx 12rpx; }
+.filter-chip { flex: none; padding: 12rpx 24rpx; border: 1rpx solid #e8e0d6; border-radius: 30rpx; background: #fff; color: #786b5e; font-size: 24rpx; }
+.filter-chip-active { border-color: #a68a64; background: #a68a64; color: #fff; }
+.grid { display: flex; flex-wrap: wrap; align-items: flex-start; margin: 0 -4rpx; }
+.cell { width: calc(50% - 8rpx); box-sizing: border-box; margin: 0 4rpx 16rpx; }
+.closet-card { overflow: hidden; }
+.swatch { height: 180rpx; border-bottom: 1rpx solid #f0ece6; }
+.thumb { display: block; width: 100%; height: 180rpx; border-bottom: 1rpx solid #f0ece6; background: #f5f1ea; }
+.meta { padding: 12rpx 16rpx; }
+.remark { margin-top: 4rpx; color: #a89a8a; font-size: 22rpx; }
 .empty { display: flex; flex-direction: column; align-items: center; gap: 24rpx; padding-top: 200rpx; }
 .add-btn { width: 320rpx; margin-top: 16rpx; }
 .fab {
@@ -9,3 +19,4 @@
   text-align: center; line-height: 96rpx;
   box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.25);
 }
+.fab-hover { opacity: 0.82; }

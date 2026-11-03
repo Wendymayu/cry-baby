@@ -1,15 +1,37 @@
 <view class="page">
+  <view class="photo-field" bindtap="choosePhoto">
+    <image wx:if="{{photoFull}}" class="photo-preview" src="{{photoFull}}" mode="aspectFill"/>
+    <view wx:else class="photo-placeholder">+ 拍照/选图</view>
+  </view>
+
   <view class="field">
     <view class="label">分类</view>
     <category-picker value="{{category}}" bind:change="onCategory"></category-picker>
   </view>
   <view class="field">
-    <view class="label">颜色</view>
+    <view class="label">颜色（有图可省）</view>
     <color-picker value="{{color}}" bind:change="onColor"></color-picker>
+  </view>
+  <view class="field tags-field">
+    <view class="label">标签（可选，可多选）</view>
+    <view wx:for="{{tagGroups}}" wx:for-item="group" wx:key="key" class="tag-group">
+      <view class="tag-group-label">{{group.label}}</view>
+      <view class="tag-options">
+        <view wx:for="{{group.options}}" wx:for-item="tag" wx:key="name"
+          class="tag-chip {{tag.selected ? 'selected' : ''}}"
+          data-group="{{group.key}}" data-tag="{{tag.name}}" bindtap="toggleTag">{{tag.name}}</view>
+      </view>
+    </view>
   </view>
   <view class="field">
     <view class="label">备注（可选）</view>
     <textarea class="remark" value="{{remark}}" bindinput="onRemark" placeholder="如：圆领T、牛仔" maxlength="50"></textarea>
   </view>
-  <button class="btn-primary save-btn" bindtap="save" disabled="{{saving}}">{{saving ? '保存中…' : '保存'}}</button>
+  <view wx:if="{{uploadFailed || (uploading && pendingUploadId)}}" class="upload-retry">
+    <view class="upload-error">{{uploading ? '图片正在上传…' : '衣物信息已保存，图片暂未上传成功'}}</view>
+    <button class="btn-primary retry-btn" bindtap="retryPhotoUpload" disabled="{{uploading}}">{{uploading ? '正在上传…' : '重试上传图片'}}</button>
+    <button class="skip-upload-btn" bindtap="continueWithoutPhoto" disabled="{{uploading}}">稍后再处理</button>
+  </view>
+  <button wx:else class="btn-primary save-btn" bindtap="save" disabled="{{saving || uploading}}">{{uploading ? '上传图片…' : (saving ? '保存中…' : '保存')}}</button>
+  <button wx:if="{{id}}" class="delete-btn" type="warn" bindtap="remove">删除这件衣物</button>
 </view>

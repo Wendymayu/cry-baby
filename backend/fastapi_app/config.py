@@ -5,6 +5,12 @@ APP_SECRET = os.environ.get("APP_SECRET", "")
 SECRET_KEY = os.environ.get("SECRET_KEY", "change-me")
 DB_URL = os.environ.get("DB_URL", "sqlite:///./clothing.db")
 
+# 上传图片本地存储目录(生产可换 OSS/COS,接口契约不变)
+UPLOAD_DIR = os.environ.get(
+    "UPLOAD_DIR",
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "uploads")),
+)
+
 # agent LLM(国产模型,OpenAI 兼容端点)
 LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
 LLM_API_KEY = os.environ.get("LLM_API_KEY", "")

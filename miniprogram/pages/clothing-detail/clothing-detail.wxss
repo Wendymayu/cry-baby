@@ -1,0 +1,20 @@
+.page { padding: 24rpx; padding-bottom: 64rpx; }
+.photo, .photo-placeholder {
+  display: block; width: 100%; height: 680rpx; border-radius: 20rpx;
+  background-color: #f0ece6;
+}
+.photo-placeholder { max-height: 480rpx; }
+.info-card {
+  margin-top: 24rpx; padding: 8rpx 24rpx; background: #fff;
+  border: 1rpx solid #f0ece6; border-radius: 16rpx;
+}
+.field { display: flex; align-items: center; justify-content: space-between; min-height: 96rpx; border-bottom: 1rpx solid #f3f0eb; }
+.field:last-child { border-bottom: 0; }
+.label { color: #a89a8a; font-size: 26rpx; }
+.value { color: #5a4a3a; font-size: 30rpx; }
+.color-value { display: flex; align-items: center; gap: 16rpx; }
+.swatch { width: 40rpx; height: 40rpx; border: 1rpx solid #f0ece6; border-radius: 50%; }
+.remark-field { align-items: flex-start; flex-direction: column; justify-content: center; gap: 12rpx; padding: 20rpx 0; }
+.edit-btn { margin-top: 36rpx; }
+.state { display: flex; flex-direction: column; align-items: center; gap: 28rpx; padding: 220rpx 32rpx 0; color: #a89a8a; }
+.back-btn { width: 320rpx; }

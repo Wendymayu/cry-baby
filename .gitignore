@@ -6,3 +6,8 @@ miniprogram/project.private.config.json
 miniprogram/miniprogram_npm/
 
 .superpowers/
+
+# Local wardrobe data and development server logs
+*.db
+/backend/uploads/
+/backend/uvicorn*.log

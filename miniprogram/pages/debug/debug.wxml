@@ -7,6 +7,8 @@
   <button type="primary" bindtap="login">2. 登录 POST /api/auth/login</button>
   <view class="result token">token:{{token || '(未登录)'}}</view>
 
+  <button type="warn" bindtap="fetchDevToken">2b. 一键获取调试 token(游客绕过)</button>
+
   <view class="label">手动 token(可选,绕过登录测 clothing)</view>
   <input class="input" value="{{manualToken}}" bindinput="onManualToken" maxlength="500" placeholder="粘贴用后端 make_token 生成的 JWT" />
 

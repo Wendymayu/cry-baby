@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, Text, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, Text, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 from fastapi_app.database import Base
 
@@ -16,8 +16,13 @@ class ClothingItem(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False)
     category = Column(Text, nullable=False)
-    color = Column(Text, nullable=False)
+    color = Column(Text, nullable=True)
     remark = Column(Text, nullable=True)
+    # Optional structured labels; JSON arrays keep each dimension easy to query/extend.
+    season_tags = Column(JSON, nullable=False, default=list)
+    occasion_tags = Column(JSON, nullable=False, default=list)
+    style_tags = Column(JSON, nullable=False, default=list)
+    material_tags = Column(JSON, nullable=False, default=list)
     photo_url = Column(Text, nullable=True)         # 原图
     photo_clean_url = Column(Text, nullable=True)   # 抠图后干净图(上传时预计算)
     created_at = Column(DateTime, default=datetime.utcnow)

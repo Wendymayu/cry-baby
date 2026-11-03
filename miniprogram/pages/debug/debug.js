@@ -1,6 +1,7 @@
 // 调试页:对接 backend FastAPI 三个接口,验证小程序↔后端链路
 const { setToken } = require('../../utils/token-store')
 const { loginWithManualToken } = require('../../utils/auth')
+const api = require('../../utils/api')
 const app = getApp()
 
 Page({
@@ -74,5 +75,21 @@ Page({
     loginWithManualToken(t)
     this.setData({ token: t })
     wx.showToast({ title: '已应用', icon: 'success' })
+  },
+
+  // 一键从后端获取调试 token 并应用(游客/测试 AppID 无法走 wx.login 时的绕过;
+  // 走 HTTP JSON,不存在手动粘贴截断问题)
+  fetchDevToken() {
+    api.auth.devToken()
+      .then(r => {
+        if (r && r.token) {
+          loginWithManualToken(r.token)
+          this.setData({ token: r.token, manualToken: r.token })
+          wx.showToast({ title: '已获取并应用', icon: 'success' })
+        } else {
+          this.setData({ health: 'dev_token: ' + JSON.stringify(r) })
+        }
+      })
+      .catch(e => this.setData({ health: 'dev_token ❌ ' + (e.message || e) }))
   }
 })

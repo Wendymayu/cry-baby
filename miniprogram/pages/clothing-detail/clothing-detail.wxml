@@ -1,0 +1,34 @@
+<view class="page" wx:if="{{item}}">
+  <image wx:if="{{photoFull}}" class="photo" src="{{photoFull}}" mode="aspectFill" />
+  <view wx:else class="photo-placeholder" style="background: {{swatch}};"></view>
+
+  <view class="info-card">
+    <view class="field">
+      <text class="label">分类</text>
+      <text class="value">{{item.category}}</text>
+    </view>
+    <view class="field">
+      <text class="label">颜色</text>
+      <view class="color-value">
+        <view class="swatch" style="background: {{swatch}};"></view>
+        <text class="value">{{colorName}}</text>
+      </view>
+    </view>
+    <view wx:for="{{tagLines}}" wx:key="label" class="field">
+      <text class="label">{{item.label}}</text>
+      <text class="value">{{item.value}}</text>
+    </view>
+    <view class="field remark-field">
+      <text class="label">备注</text>
+      <text class="value">{{item.remark || '暂无备注'}}</text>
+    </view>
+  </view>
+
+  <button class="btn-primary edit-btn" bindtap="edit">编辑衣物</button>
+</view>
+
+<view class="state" wx:elif="{{loading}}">正在加载衣物信息…</view>
+<view class="state" wx:else>
+  <text>暂时无法获取衣物信息</text>
+  <button class="btn-primary back-btn" bindtap="goBack">返回衣橱</button>
+</view>

@@ -1,12 +1,33 @@
 <view class="page">
-  <view class="grid" wx:if="{{items.length}}">
-    <view wx:for="{{items}}" wx:key="id" class="cell">
-      <closet-card item="{{item}}"></closet-card>
+  <scroll-view wx:if="{{items.length && !loadError}}" class="filter-scroll" scroll-x="true" show-scrollbar="{{false}}">
+    <view class="filter-list">
+      <view wx:for="{{filterOptions}}" wx:key="name"
+        class="filter-chip {{item.selected ? 'filter-chip-active' : ''}}"
+        data-category="{{item.name}}" bindtap="selectCategory">{{item.name}}</view>
+    </view>
+  </scroll-view>
+  <view class="grid" wx:if="{{rows.length}}">
+    <view wx:for="{{rows}}" wx:for-item="row" wx:key="key" class="cell" catchtap="goDetail" bindtouchstart="onItemTouchStart" bindtouchmove="onItemTouchMove" bindtouchend="onItemTouchEnd" bindtouchcancel="onItemTouchCancel" data-id="{{row.item.id}}">
+      <view class="card closet-card">
+        <image wx:if="{{row.item.photoFull}}" class="thumb" src="{{row.item.photoFull}}" mode="aspectFill" lazy-load="true" catchtap="goDetail" data-id="{{row.item.id}}" />
+        <view wx:else class="swatch" style="background: {{row.item.swatch}};" catchtap="goDetail" data-id="{{row.item.id}}"></view>
+        <view wx:if="{{row.item.remark}}" class="meta">
+          <view class="remark">{{row.item.remark}}</view>
+        </view>
+      </view>
     </view>
   </view>
-  <view class="empty" wx:elif="{{!loading}}">
+  <view class="empty" wx:elif="{{items.length && !rows.length && !loading && !loadError}}">
+    <text class="subtitle">这个分类还没有衣物</text>
+    <button class="btn-primary add-btn" bindtap="selectCategory" data-category="全部">查看全部衣物</button>
+  </view>
+  <view class="empty" wx:elif="{{!items.length && !loading && !loadError}}">
     <text class="subtitle">衣橱还是空的</text>
     <button class="btn-primary add-btn" bindtap="goAdd">添加第一件</button>
   </view>
-  <view class="fab" bindtap="goAdd">+</view>
+  <view class="empty" wx:elif="{{loadError}}">
+    <text class="subtitle">暂时无法获取衣橱</text>
+    <button class="btn-primary add-btn" bindtap="load">重试</button>
+  </view>
+  <view class="fab" hover-class="fab-hover" bindtap="goAdd">+</view>
 </view>

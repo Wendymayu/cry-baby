@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/closet/closet",
+    "pages/clothing-detail/clothing-detail",
     "pages/clothing-edit/clothing-edit",
     "pages/chat/chat",
     "pages/profile/profile",
@@ -20,7 +21,6 @@
     "borderStyle": "white",
     "list": [
       { "pagePath": "pages/closet/closet", "text": "衣橱" },
-      { "pagePath": "pages/chat/chat", "text": "对话" },
       { "pagePath": "pages/profile/profile", "text": "我的" }
     ]
   },

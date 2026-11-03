@@ -1,8 +1,29 @@
 .page { padding: 24rpx; }
+.photo-field { margin-bottom: 32rpx; }
+.photo-preview {
+  width: 200rpx; height: 200rpx; border-radius: 12rpx; display: block;
+}
+.photo-placeholder {
+  width: 200rpx; height: 200rpx; border-radius: 12rpx;
+  border: 2rpx dashed #c9bda9; color: #a89a8a;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26rpx; background: #faf7f1;
+}
 .field { margin-bottom: 32rpx; }
 .label { font-size: 26rpx; color: #a89a8a; margin-bottom: 12rpx; }
+.tag-group { margin-top: 22rpx; }
+.tag-group-label { margin-bottom: 12rpx; color: #786b5e; font-size: 25rpx; }
+.tag-options { display: flex; flex-wrap: wrap; gap: 14rpx; }
+.tag-chip { padding: 12rpx 22rpx; border: 1rpx solid #e8e0d6; border-radius: 28rpx; color: #786b5e; background: #fff; font-size: 24rpx; }
+.tag-chip.selected { border-color: #a68a64; color: #806744; background: #f3eee7; }
+.tags-field { padding-bottom: 4rpx; }
 .remark {
   width: 100%; min-height: 120rpx; padding: 20rpx; box-sizing: border-box;
   background: #fff; border: 1rpx solid #f0ece6; border-radius: 12rpx;
 }
 .save-btn { margin-top: 48rpx; }
+.upload-retry { margin-top: 40rpx; text-align: center; }
+.upload-error { margin-bottom: 18rpx; color: #a66b55; font-size: 24rpx; }
+.retry-btn { width: 100%; }
+.skip-upload-btn { margin-top: 12rpx; background: transparent; color: #897b6b; font-size: 26rpx; }
+.delete-btn { margin-top: 24rpx; }

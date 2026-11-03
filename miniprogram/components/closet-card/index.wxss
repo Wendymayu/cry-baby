@@ -1,5 +1,6 @@
 .closet-card { overflow: hidden; }
 .swatch { height: 180rpx; border-bottom: 1rpx solid #f0ece6; }
+.thumb { height: 180rpx; width: 100%; display: block; border-bottom: 1rpx solid #f0ece6; background: #f5f1ea; }
 .meta { padding: 12rpx 16rpx; }
 .cat { font-size: 28rpx; font-weight: 500; }
 .remark { font-size: 22rpx; color: #a89a8a; margin-top: 4rpx; }

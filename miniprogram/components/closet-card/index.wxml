@@ -1,5 +1,6 @@
-<view class="card closet-card">
-  <view class="swatch" style="background: {{swatch}};"></view>
+<view class="card closet-card" bindtap="onTap" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd" bindtouchcancel="onTouchCancel">
+  <image wx:if="{{photoFull}}" class="thumb" src="{{photoFull}}" mode="aspectFill" lazy-load="true"/>
+  <view wx:else class="swatch" style="background: {{swatch}};"></view>
   <view class="meta">
     <view class="cat">{{item.category}}</view>
     <view class="remark" wx:if="{{item.remark}}">{{item.remark}}</view>

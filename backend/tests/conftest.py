@@ -6,6 +6,8 @@ os.environ.setdefault("DB_URL", "sqlite:///:memory:")
 os.environ.setdefault("LLM_BASE_URL", "http://localhost")
 os.environ.setdefault("LLM_API_KEY", "test-key")
 os.environ.setdefault("LLM_MODEL", "test-model")
+# 测试上传落临时目录,避免污染 backend/uploads
+os.environ.setdefault("UPLOAD_DIR", os.path.join(tempfile.gettempdir(), "cry-baby-test-uploads"))
 
 import pytest
 from fastapi_app.database import Base, engine, SessionLocal
