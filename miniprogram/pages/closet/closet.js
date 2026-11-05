@@ -1,8 +1,6 @@
 const api = require('../../utils/api');
 const { ensureLogin } = require('../../utils/auth');
 const { CATEGORIES, getColorValue } = require('../../utils/constants');
-const app = getApp();
-
 function buildRows(items, activeCategory) {
   const visibleItems = activeCategory === '全部'
     ? items
@@ -10,7 +8,7 @@ function buildRows(items, activeCategory) {
   return visibleItems.map(item => ({
     key: 'item:' + item.id,
     item: Object.assign({}, item, {
-      photoFull: item.photo_url ? app.globalData.baseUrl + item.photo_url : '',
+      photoFull: api.resolvePhotoUrl(item.photo_url),
       swatch: getColorValue(item.color),
     }),
   }));
@@ -48,9 +46,12 @@ Page({
         });
         if (typeof done === 'function') done();
       })
-      .catch(() => {
+      .catch(error => {
         this.setData({ loading: false, loadError: true });
-        wx.showToast({ title: '加载失败，请检查网络后重试', icon: 'none', duration: 2500 });
+        const title = error && error.code === 'PRIVACY_DECLINED'
+          ? '同意隐私说明后可使用衣橱'
+          : '加载失败，请检查网络后重试';
+        wx.showToast({ title, icon: 'none', duration: 2500 });
         if (typeof done === 'function') done();
       });
   },
@@ -128,15 +129,15 @@ Page({
   },
   confirmDelete(itemId) {
     wx.showModal({
-      title: '删除衣物',
-      content: '确定删除这件衣物？删除后不可恢复。',
-      confirmText: '删除',
-      confirmColor: '#d93025',
+      title: '移入回收站',
+      content: '这件衣物会在回收站保留 30 天，期间可以恢复。',
+      confirmText: '移入回收站',
+      confirmColor: '#a68a64',
       success: result => {
         if (!result.confirm) return;
         api.clothing.remove(itemId)
           .then(() => {
-            wx.showToast({ title: '已删除', icon: 'success' });
+            wx.showToast({ title: '已移入回收站', icon: 'success' });
             this.load();
           })
           .catch(() => wx.showToast({ title: '删除失败，请重试', icon: 'none' }));

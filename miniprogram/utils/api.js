@@ -2,8 +2,18 @@
 const { request } = require('./request');
 const { getToken } = require('./token-store');
 
+function resolvePhotoUrl(url) {
+  if (!url) return '';
+  if (/^https?:\/\//i.test(url)) return url;
+  return getApp().globalData.baseUrl + url;
+}
+
 module.exports = {
+  resolvePhotoUrl,
   auth: {
+    deleteAccount() {
+      return request({ url: '/api/auth/account', method: 'DELETE' });
+    },
     login(code) {
       return request({ url: '/api/auth/login', method: 'POST', data: { code }, needAuth: false });
     },
@@ -14,6 +24,7 @@ module.exports = {
   },
   clothing: {
     list() { return request({ url: '/api/clothing', method: 'GET' }); },
+    listTrash() { return request({ url: '/api/clothing/trash', method: 'GET' }); },
     get(id) { return request({ url: `/api/clothing/${id}`, method: 'GET' }); },
     create({ category, color, remark, season_tags, occasion_tags, style_tags, material_tags }) {
       return request({ url: '/api/clothing', method: 'POST', data: { category, color, remark, season_tags, occasion_tags, style_tags, material_tags } });
@@ -22,6 +33,8 @@ module.exports = {
       return request({ url: `/api/clothing/${id}`, method: 'PUT', data: { category, color, remark, season_tags, occasion_tags, style_tags, material_tags } });
     },
     remove(id) { return request({ url: `/api/clothing/${id}`, method: 'DELETE' }); },
+    restore(id) { return request({ url: `/api/clothing/${id}/restore`, method: 'POST' }); },
+    deletePermanently(id) { return request({ url: `/api/clothing/${id}/permanent`, method: 'DELETE' }); },
     // 上传衣物图片(multipart):wx.uploadFile 不走通用 request 封装,需自带 Authorization 头。
     // 返回更新后的 item(含 photo_url)。
     uploadPhoto(itemId, filePath) {

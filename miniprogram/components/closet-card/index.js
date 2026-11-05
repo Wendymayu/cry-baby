@@ -1,6 +1,7 @@
 const { getColorValue } = require('../../utils/constants');
+const { resolvePhotoUrl } = require('../../utils/api');
 
-// 衣橱卡片:有图显图,无图回落到颜色色块。photo_url 是后端相对路径,需拼 baseUrl。
+// 衣橱卡片:有图显图,无图回落到颜色色块。
 Component({
   properties: {
     item: { type: Object, value: {} },
@@ -11,7 +12,7 @@ Component({
       this.setData({ swatch: getColorValue(color) });
     },
     'item.photo_url': function (url) {
-      this.setData({ photoFull: url ? getApp().globalData.baseUrl + url : '' });
+      this.setData({ photoFull: resolvePhotoUrl(url) });
     },
   },
   lifetimes: {
@@ -19,7 +20,7 @@ Component({
       const item = this.data.item || {};
       this.setData({
         swatch: getColorValue(item.color),
-        photoFull: item.photo_url ? getApp().globalData.baseUrl + item.photo_url : '',
+        photoFull: resolvePhotoUrl(item.photo_url),
       });
     },
   },

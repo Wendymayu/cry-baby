@@ -31,7 +31,9 @@ function request({ url, method = 'GET', data, needAuth = true }, retried = false
         } else if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(res.data);
         } else {
-          reject(new Error('HTTP ' + res.statusCode));
+          const error = new Error('HTTP ' + res.statusCode);
+          error.statusCode = res.statusCode;
+          reject(error);
         }
       },
       fail(err) { reject(new Error((err && err.errMsg) || 'network error')); },

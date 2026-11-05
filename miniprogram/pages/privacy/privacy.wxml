@@ -1,0 +1,32 @@
+<view class="page">
+  <view class="title">个人信息与隐私说明</view>
+  <view class="updated">更新日期：2026年11月4日</view>
+
+  <view class="section">
+    <view class="heading">我们处理哪些信息</view>
+    <view class="body">为登录并保存你的个人衣橱，我们处理微信提供的 OpenID，以及你主动录入的衣物分类、颜色、季节/场景/风格/材质标签、备注和你主动选择上传的衣物照片。</view>
+  </view>
+  <view class="section">
+    <view class="heading">处理目的和保存方式</view>
+    <view class="body">这些信息仅用于账号识别、展示和管理你的衣物。账号和衣物信息保存在本小程序运营者使用的后端数据库及图片存储中，不用于广告推荐。我们通过微信登录服务验证登录身份。</view>
+  </view>
+  <view class="section">
+    <view class="heading">保存期限</view>
+    <view class="body">信息在你使用衣橱服务期间保存。单件衣物删除后会进入回收站，保留 30 天，期间可恢复或提前永久删除；超过期限后，衣物信息和照片会自动永久删除。删除账号会立即删除账号标识、全部衣物信息（含回收站）和照片。法律法规另有保存要求的除外。</view>
+  </view>
+  <view class="section">
+    <view class="heading">你的权利</view>
+    <view class="body">你可以在衣橱中查看、修改或删除单件衣物，也可以在“我的”页面申请删除账号和全部衣橱数据。你可以通过下方邮箱联系我们，申请查询、更正或删除个人信息，或询问本说明。</view>
+  </view>
+  <view class="section contact">
+    <view class="heading">运营者与联系</view>
+    <view class="body">运营者：Cry Baby 衣橱</view>
+    <view class="body email" bindtap="copyContactEmail">隐私问题联系邮箱：{{contactEmail}}（点击复制）</view>
+  </view>
+
+  <button class="privacy-link" bindtap="openPrivacyContract">查看微信平台隐私保护指引</button>
+  <view wx:if="{{required}}" class="actions">
+    <button class="decline" bindtap="declinePrivacyAuthorization" disabled="{{resolving}}">暂不使用</button>
+    <button id="privacy-agree" class="btn-primary agree" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="agreePrivacyAuthorization" disabled="{{resolving}}">{{resolving ? '处理中…' : '同意并继续'}}</button>
+  </view>
+</view>

@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi_app import auth
-from fastapi_app import config
+from fastapi_app import config, storage
 from fastapi_app.database import SessionLocal
-from fastapi_app.models import User
-from fastapi_app.deps import get_db
+from fastapi_app.models import ClothingItem, User
+from fastapi_app.deps import get_current_user, get_db
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -37,3 +37,18 @@ def dev_token(db=Depends(get_db)):
         db.add(user); db.commit(); db.refresh(user)
     token = auth.make_token(user.id, user.openid)
     return {"token": token, "user": {"id": user.id, "openid": user.openid}}
+
+
+@router.delete("/account")
+def delete_account(user=Depends(get_current_user), db=Depends(get_db)):
+    """Delete the signed-in account, wardrobe rows, and uploaded clothing photos."""
+    items = db.query(ClothingItem).filter_by(user_id=user.id).all()
+    photo_urls = [item.photo_url for item in items if item.photo_url]
+    for item in items:
+        db.delete(item)
+    db.delete(user)
+    db.commit()
+
+    for photo_url in photo_urls:
+        storage.delete_photo(photo_url)
+    return {"ok": True}

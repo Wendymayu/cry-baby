@@ -5,6 +5,8 @@
     "pages/clothing-edit/clothing-edit",
     "pages/chat/chat",
     "pages/profile/profile",
+    "pages/trash/trash",
+    "pages/privacy/privacy",
     "pages/debug/debug"
   ],
   "window": {

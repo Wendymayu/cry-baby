@@ -24,7 +24,7 @@ Page({
         if (tagLines.length === 0) tagLines.push({ label: '标签', value: '未设置' });
         this.setData({
           item,
-          photoFull: item.photo_url ? getApp().globalData.baseUrl + item.photo_url : '',
+          photoFull: api.resolvePhotoUrl(item.photo_url),
           swatch: getColorValue(item.color),
           colorName: item.color ? getColorName(item.color) : '未设置',
           tagLines,

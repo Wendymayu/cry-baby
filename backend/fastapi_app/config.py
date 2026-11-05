@@ -11,6 +11,14 @@ UPLOAD_DIR = os.environ.get(
     os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "uploads")),
 )
 
+# OSS is enabled only when all credentials and the bucket are configured. Keep
+# secrets in the deployment environment (prefer a least-privilege RAM user).
+OSS_BUCKET = os.environ.get("OSS_BUCKET", "cry-baby-clothes")
+OSS_ENDPOINT = os.environ.get("OSS_ENDPOINT", "https://oss-cn-shanghai.aliyuncs.com")
+OSS_ACCESS_KEY_ID = os.environ.get("OSS_ACCESS_KEY_ID", "")
+OSS_ACCESS_KEY_SECRET = os.environ.get("OSS_ACCESS_KEY_SECRET", "")
+OSS_SIGNED_URL_TTL = int(os.environ.get("OSS_SIGNED_URL_TTL", "604800"))
+
 # agent LLM(国产模型,OpenAI 兼容端点)
 LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
 LLM_API_KEY = os.environ.get("LLM_API_KEY", "")

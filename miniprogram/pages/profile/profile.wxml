@@ -1,4 +1,17 @@
 <view class="page">
+  <view class="section-title">衣物管理</view>
+  <view class="row trash-entry" bindtap="goTrash">
+    <view class="trash-entry-main">
+      <view class="trash-icon">回</view>
+      <view class="trash-copy">
+        <text class="trash-title">回收站</text>
+        <text class="trash-hint">误删衣物可在 30 天内恢复</text>
+      </view>
+    </view>
+    <text class="arrow">›</text>
+  </view>
+
+  <view class="section-title settings-title">设置与隐私</view>
   <view class="field">
     <view class="label">后端地址</view>
     <input class="input" value="{{baseUrl}}" bindinput="onBaseUrlInput" placeholder="http://127.0.0.1:8000"></input>
@@ -6,6 +19,14 @@
   </view>
   <view class="row" bindtap="goDebug">
     <text>开发调试</text>
+    <text class="arrow">›</text>
+  </view>
+  <view class="row" bindtap="openPrivacy">
+    <text>个人信息与隐私</text>
+    <text class="arrow">›</text>
+  </view>
+  <view class="row delete-row" bindtap="deleteAccount">
+    <text>{{deletingAccount ? '正在删除…' : '删除账号和全部数据'}}</text>
     <text class="arrow">›</text>
   </view>
   <view class="row about">

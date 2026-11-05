@@ -27,3 +27,4 @@ class ClothingItem(Base):
     photo_clean_url = Column(Text, nullable=True)   # 抠图后干净图(上传时预计算)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    deleted_at = Column(DateTime, nullable=True, index=True)

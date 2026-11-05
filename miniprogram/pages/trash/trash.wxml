@@ -1,0 +1,54 @@
+<view class="page">
+  <view class="retention-card">
+    <view class="retention-mark">30</view>
+    <view class="retention-copy">
+      <view class="retention-title">衣物会在 30 天后自动删除</view>
+      <view class="retention-desc">恢复后会回到原来的衣橱；也可以随时彻底删除。</view>
+    </view>
+  </view>
+
+  <view class="list-heading">
+    <text class="heading-title">已删除衣物</text>
+    <text class="heading-count">{{items.length}} 件</text>
+  </view>
+
+  <view wx:if="{{items.length && !loadError}}" class="trash-list">
+    <view wx:for="{{items}}" wx:key="id" class="trash-card">
+      <view class="item-main">
+        <image wx:if="{{item.photoFull}}" class="item-photo" src="{{item.photoFull}}" mode="aspectFill" lazy-load="true" />
+        <view wx:else class="item-photo item-swatch" style="background: {{item.swatch}};"></view>
+        <view class="item-info">
+          <view class="info-top">
+            <text class="category">{{item.category}}</text>
+            <text class="remaining">{{item.expiryText}}</text>
+          </view>
+          <view class="color-line">
+            <view class="color-dot" style="background: {{item.swatch}};"></view>
+            <text>{{item.colorName}}</text>
+          </view>
+          <text wx:if="{{item.remark}}" class="remark" number-of-lines="1">{{item.remark}}</text>
+          <text class="expires">到期后将自动彻底删除</text>
+        </view>
+      </view>
+      <view class="item-actions">
+        <button class="restore-button" data-id="{{item.id}}" bindtap="restore" loading="{{busyId === item.id}}" disabled="{{busyId && busyId !== item.id}}">恢复到衣橱</button>
+        <button class="permanent-button" data-id="{{item.id}}" bindtap="confirmPermanentDelete" disabled="{{busyId}}">彻底删除</button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading && !items.length}}" class="state-card">
+    <view class="state-title">正在打开回收站</view>
+  </view>
+  <view wx:elif="{{loadError}}" class="state-card">
+    <view class="state-icon">!</view>
+    <view class="state-title">暂时无法获取回收站</view>
+    <view class="state-desc">检查网络后再试一次</view>
+    <button class="retry-button" bindtap="load">重试</button>
+  </view>
+  <view wx:elif="{{!loading && !items.length && !loadError}}" class="state-card empty-card">
+    <view class="empty-icon">✓</view>
+    <view class="state-title">回收站是空的</view>
+    <view class="state-desc">删除的衣物会暂存在这里，方便你找回。</view>
+  </view>
+</view>

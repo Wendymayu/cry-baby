@@ -79,7 +79,7 @@ Page({
             material_tags: item.material_tags || [],
           },
           tagGroups: makeTagGroups(item),
-          photoFull: item.photo_url ? app.globalData.baseUrl + item.photo_url : '',
+          photoFull: api.resolvePhotoUrl(item.photo_url),
         });
       })
       .catch(() => wx.showToast({ title: '加载失败', icon: 'none' }));
@@ -181,12 +181,12 @@ Page({
     const { id } = this.data;
     if (!id) return;
     wx.showModal({
-      title: '删除衣物', content: '确定删除这件衣物?删除后不可恢复。',
-      confirmText: '删除', confirmColor: '#d93025',
+      title: '移入回收站', content: '这件衣物会在回收站保留 30 天，期间可以恢复。',
+      confirmText: '移入回收站', confirmColor: '#a68a64',
       success: r => {
         if (!r.confirm) return;
         api.clothing.remove(id)
-          .then(() => { wx.showToast({ title: '已删除', icon: 'success' }); setTimeout(() => wx.navigateBack(), 500); })
+          .then(() => { wx.showToast({ title: '已移入回收站', icon: 'success' }); setTimeout(() => wx.navigateBack(), 500); })
           .catch(() => wx.showToast({ title: '删除失败', icon: 'none' }));
       },
     });
